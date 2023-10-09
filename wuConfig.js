@@ -33,6 +33,7 @@ function doConfig(configFile, cb) {
         k.unshift(wu.changeExt(e.entryPagePath));
         let app = {pages: k, window: e.global && e.global.window, tabBar: e.tabBar, networkTimeout: e.networkTimeout};
         if (e.subPackages) {
+            console.log(e);
             let subPackages = [];
             let pages = app.pages;
             for (let subPackage of e.subPackages) {
@@ -46,13 +47,15 @@ function doConfig(configFile, cb) {
                     root = root.substring(1);
                 }
                 let newPages = [];
-                for (let page of subPackage.pages) {
-                    let items = page.replace(root, '');
-                    newPages.push(items);
-                    let subIndex = pages.indexOf(root + items);
-                    console.log(root + items, subIndex);
-                    if (subIndex!==-1) {
-                        pages.splice(subIndex, 1);
+                if (subPackage.pages) {
+                    for (let page of subPackage.pages) {
+                        let items = page.replace(root, '');
+                        newPages.push(items);
+                        let subIndex = pages.indexOf(root + items);
+                        console.log(root + items, subIndex);
+                        if (subIndex !== -1) {
+                            pages.splice(subIndex, 1);
+                        }
                     }
                 }
                 subPackage.root = root;
