@@ -15,3 +15,8 @@ build.xml
 .gradle/
 build/
 captures/
+
+.DS_Store
+*.wxapkg
+wx*/
+node_modules/
